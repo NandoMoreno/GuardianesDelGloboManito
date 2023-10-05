@@ -1,0 +1,105 @@
+package com.tg.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.tg.domain.Booking;
+import com.tg.dto.BookingDto;
+import com.tg.repository.BookingRepository;
+
+@Service
+public class BookingServiceImplement implements BookingService {
+
+	@Autowired //Inyecta dependecias 
+	private BookingRepository bookingRepository;
+	
+	@Override
+	public List<Booking> consultarTodasLasReservas() throws Exception {
+		
+		// TODO Auto-generated method stub
+		List<Booking> listaReservas = bookingRepository.findAll();
+		if (listaReservas.isEmpty()) {
+			throw new Exception("No hay ningun elemento en la Puta lista");	
+		}
+		else {
+			return listaReservas;
+		}
+	}
+
+	@Override
+	public Booking consultarReservaPorId(String bookingId) throws Exception {
+		
+		// TODO Auto-generated method stub
+		Optional<Booking> reserva = bookingRepository.findById(bookingId);
+		if (reserva.isEmpty()) {
+			throw new Exception("No existe ese elemento");	
+		}
+		else {
+			return reserva.get();
+		}
+	}
+
+	@Override
+	public Booking guardarReserva(BookingDto bookingDto) throws Exception {
+		// TODO Auto-generated method stub
+		
+		if (bookingDto == null) {
+			throw new Exception("No se recibieron datos");
+		}
+		
+		Booking reservaGuardar = new Booking();
+		
+		return bookingRepository.save(reservaGuardar);
+	}
+
+	@Override
+	public Booking modificarReserva(BookingDto bookingDto) throws Exception {
+		// TODO Auto-generated method stub
+		if (bookingDto == null) {
+			throw new Exception("No se recibieron datos");
+		}
+		
+		if (bookingDto.getId().equals("")) {
+			throw new Exception("El id no puede ser nulo");
+		}
+		
+		Optional<Booking> reservaBuscar = bookingRepository.findById(String.valueOf(bookingDto.getId()));
+		 
+		if (!reservaBuscar.isPresent()) {
+			throw new Exception("No existe la persona que se quiere modificar");
+		}
+		
+		Booking reservaModificar = new Booking();
+		
+		reservaModificar.setId(String.valueOf(bookingDto.getId()));
+		
+		return bookingRepository.save(reservaModificar) ;
+	}
+
+	@Override
+	public void eliminarReserva(String bookingId) throws Exception {
+		// TODO Auto-generated method stub
+		
+		if (bookingId.equals("")) {
+			throw new Exception("El id no puede ser nulo");
+		}
+		
+		Optional<Booking> reservaBuscar = bookingRepository.findById(bookingId);
+		
+		//Se valida que la persona no exista en la base de datos
+				if (!reservaBuscar.isPresent()) {
+					throw new Exception("No existe la reserva que se quiere eliminar");
+				}
+		/*Despues de validar que la personas si exista 
+		consultamos esa persona y la guardamos en un objeto de ese tipo */
+		Booking reserva = reservaBuscar.get();
+				
+		/*Luego de haber hecho todas las consulta
+		se procede a eliminar la persona */
+		bookingRepository.delete(reserva);
+	}
+
+}

@@ -1,0 +1,78 @@
+package com.tg.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.tg.dto.EventDto;
+import com.tg.service.EventService;
+
+@CrossOrigin("*")//Permite que todos los puertos tienen acceso
+@RestController // Utilice APis rest
+@RequestMapping("/api/event") // Ruta donde va ser llamada mi Api
+public class EventController {
+	
+	@Autowired
+	private EventService eventService;
+	
+	@GetMapping("/consultareventos")// Indicar el frontend que tipo de operacion hace
+	//Encargada de responder al llamado del origen con la info u codigo estatus 200 Ok ...
+    public ResponseEntity<?> consultarEventos(){
+
+        try {
+            return ResponseEntity.ok().body(eventService.consultarTodosLosEventos());
+        }catch (Exception e) {
+            // TODO: handle exception
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+	
+	@PostMapping("/guardarevento")// Indicar el frontend que tipo de operacion hace
+	//Encargada de responder al llamado del origen con la info u codigo estatus 200 Ok ...
+	@ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<?> guardarEvento(@RequestBody EventDto eventDto){
+
+        try {
+            return ResponseEntity.ok().body(eventService.guardarEventos(eventDto));
+        }catch (Exception e) {
+            // TODO: handle exception
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+	
+	@PutMapping("/actualizarevento")// Indicar el frontend que tipo de operacion hace
+	//Encargada de responder al llamado del origen con la info u codigo estatus 200 Ok ...
+	@ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<?> actualizarEvento(@RequestBody EventDto eventDto){
+
+        try {
+            return ResponseEntity.ok().body(eventService.modificarEventos(eventDto));
+        }catch (Exception e) {
+            // TODO: handle exception
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+	
+	@DeleteMapping("/eliminarevento")
+	@ResponseStatus(HttpStatus.OK)
+	public ResponseEntity<?> eliminarDebilidad(@RequestParam("id") Long eventId){
+
+        try {
+        	eventService.eliminarEventos(eventId);
+            return ResponseEntity.ok(eventId);
+        }catch (Exception e) {
+            // TODO: handle exception
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+}
