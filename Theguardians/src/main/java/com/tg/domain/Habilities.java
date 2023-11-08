@@ -2,11 +2,17 @@ package com.tg.domain;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,54 +38,5 @@ public class Habilities implements Serializable{
 	@Column(name = "name")
 	private String name;
 	
-	@Column(name = "villain_id", nullable = false)
-	private Long villainId;
 	
-	@Column(name = "hero_id", nullable = false)
-	private Long heroId;
-
-	public Habilities() {
-		super();
-	}
-
-	public Habilities(Long id, String name, Long villainId, Long heroId) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.villainId = villainId;
-		this.heroId = heroId;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Long getVillainId() {
-		return villainId;
-	}
-
-	public void setVillainId(Long villainId) {
-		this.villainId = villainId;
-	}
-
-	public Long getHeroId() {
-		return heroId;
-	}
-
-	public void setHeroId(Long heroId) {
-		this.heroId = heroId;
-	}
-
 }

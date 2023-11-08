@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,6 +38,42 @@ public class PeopleController {
         }
     }
 	
+	@GetMapping("/consultarpersonaspornombre")// Indicar a el frontend que tipo de operacion hace
+	//Encargada de responder al llamado del origen con la info u codigo estatus 200 Ok ...
+    public ResponseEntity<?> consultarPersonasPorNombre(@RequestParam("nombre") String nombre){
+
+        try {
+            return ResponseEntity.ok().body(peopleService.encontrarPeoplePorNombre(nombre));
+        }catch (Exception e) {
+            // TODO: handle exception
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+	
+	@GetMapping("/consultarpersonasporedad")// Indicar a el frontend que tipo de operacion hace
+	//Encargada de responder al llamado del origen con la info u codigo estatus 200 Ok ...
+    public ResponseEntity<?> consultarPersonasPorEdad(@RequestParam("edad") Long edad){
+
+        try {
+            return ResponseEntity.ok().body(peopleService.encontrarPeoplePorEdad(edad));
+        }catch (Exception e) {
+            // TODO: handle exception
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+	
+	@GetMapping("/consultarpersonasporrango")// Indicar a el frontend que tipo de operacion hace
+	//Encargada de responder al llamado del origen con la info u codigo estatus 200 Ok ...
+    public ResponseEntity<?> consultarPersonasPorEdad(@RequestParam("rango") String rango){
+
+        try {
+            return ResponseEntity.ok().body(peopleService.encontrarPeoplePorRangoDeEdad(rango));
+        }catch (Exception e) {
+            // TODO: handle exception
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+	
 	@PostMapping("/guardarpersona")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<?> guardarPersona(@RequestBody PeopleDto peopleDto){
@@ -49,7 +86,7 @@ public class PeopleController {
         }
     }
 	
-	@PutMapping("/actualizarpersona")
+	@PostMapping("/actualizarpersona")
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<?> actualizarPersona(@RequestBody PeopleDto peopleDto){
 

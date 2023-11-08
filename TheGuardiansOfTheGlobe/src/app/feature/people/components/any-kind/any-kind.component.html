@@ -1,0 +1,38 @@
+<h1 mat-dialog-title>Crear {{data.opcion}}</h1>
+<div mat-dialog-content class="elements">
+    <p>¿Que persona desea elegir?</p>
+    <mat-form-field>
+        <mat-label>Seleccione la persona</mat-label>
+        <mat-select [(ngModel)]="personaSeleccion"  >
+            <mat-option *ngFor="let persona of personas" [value]="persona">
+                {{persona.name}}
+              </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <ng-container *ngIf="opcion === 'Heroe' || opcion === 'Villano'; then habilidad; else patrocinador ">
+    </ng-container>
+    
+    <ng-template #habilidad>
+        <p>¿Que habilidad le desea agregar?</p>
+        <mat-form-field>
+            <mat-label>Agregar una habilidad</mat-label>
+            <mat-select [(ngModel)]="habilidadInicial"  >
+                <mat-option *ngFor="let habilidad of habilidades" [value]="habilidad">
+                    {{habilidad.name}}
+                  </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </ng-template>
+
+    <ng-template #patrocinador>
+        <p>Ingrese la cantidad del aporte</p>
+        <mat-form-field>
+            <mat-label>Aporte</mat-label>
+            <input matInput [(ngModel)]="aporte">
+          </mat-form-field>
+    </ng-template>
+
+<div mat-dialog-actions >
+
+<button mat-stroked-button  (click)="onNoClick()">Cancelar</button>
+<button mat-stroked-button (click)="guardar()" class={{data.color}} [mat-dialog-close]="data" class="bg-primary text-white">Crear {{data.opcion}}</button>

@@ -45,19 +45,74 @@ public class HabilitiesServiceImplement implements HabilitiesService{
 	@Override
 	public Habilities guardarHabilidades(HabilitiesDto habilitiesDto) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		if (habilitiesDto == null) {
+			throw new Exception("La habilidad no puede ser nula");
+		}
+		
+		if (habilitiesDto.getName().equals("")) {
+			throw new Exception("El nombre de la habilidad no puede estar vacio");
+		}
+		
+		Habilities habilidad = new Habilities();
+		
+		habilidad.setName(habilitiesDto.getName());
+		
+		return habilitiesRepository.save(habilidad);
 	}
 
 	@Override
 	public Habilities modificarHabilidades(HabilitiesDto habilitiesDto) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		if (habilitiesDto == null) {
+			throw new Exception("La habilidad no puede ser nula");
+		}
+		
+		if (habilitiesDto.getId() < 0) {
+			throw new Exception("El id de la habilidad no puede ser nulo");
+		}
+		
+		if (habilitiesDto.getName().equals("")) {
+			throw new Exception("El nombre de la habilidad no puede estar vacio");
+		}
+		
+		Habilities habilidad = new Habilities();
+		
+		habilidad.setId(habilitiesDto.getId());
+		habilidad.setName(habilitiesDto.getName());
+		
+		return habilitiesRepository.save(habilidad);
 	}
 
 	@Override
 	public void eliminarHabilidades(Long habilitiesId) throws Exception {
 		// TODO Auto-generated method stub
+		if (habilitiesId < 0) {
+			throw new Exception("El id de la habilidad no puede ser nulo");
+		}
 		
+		Optional<Habilities> habilidad = habilitiesRepository.findById(habilitiesId);
+		
+		if (habilidad.isPresent()) {
+			habilitiesRepository.delete(habilidad.get());			
+		}else {
+			throw new Exception("No existe esa habilidad");
+		}
+	}
+
+	@Override
+	public List<Habilities> consultarHabilidadesPorNombre(String nombre) throws Exception {
+		// TODO Auto-generated method stub
+		if (nombre.equals("")) {
+			throw new Exception("El nombre de la habilidad no puede estar vacio");
+		}
+		
+		List<Habilities> habilidad = habilitiesRepository.findByName(nombre);
+		
+		if (habilidad.isEmpty()) {
+			throw new Exception("No existe la habilidad llamada "+nombre);
+		}else {
+			return habilidad;
+		}
 	}
 
 }

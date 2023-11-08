@@ -35,39 +35,4 @@ public class Event implements Serializable{
 	@Column(name = "booking_id", nullable = false)
 	private Long bookingId;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Long getBookingId() {
-		return bookingId;
-	}
-
-	public void setBookingId(Long bookingId) {
-		this.bookingId = bookingId;
-	}
-
-	public Event(Long id, String name, Long bookingId) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.bookingId = bookingId;
-	}
-
-	public Event() {
-		super();
-	}
-
 }

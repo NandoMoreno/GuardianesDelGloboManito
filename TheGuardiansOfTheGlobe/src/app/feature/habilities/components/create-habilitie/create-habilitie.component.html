@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Crear habilidad: {{data.name}}</h1>
+<div mat-dialog-content class="tabla">
+  <p>¿Cual es el nombre de la habilidad?</p>
+  <mat-form-field>
+    <mat-label>Nombre</mat-label>
+    <input matInput [(ngModel)]="data.name">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions >
+  <button mat-stroked-button (click)="onNoClick()">Cancelar</button>
+  <button mat-stroked-button [mat-dialog-close]="data" class="bg-primary text-white">Crear</button>
+</div>

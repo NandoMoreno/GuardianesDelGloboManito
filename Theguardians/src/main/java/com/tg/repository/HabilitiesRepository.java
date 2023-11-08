@@ -1,19 +1,18 @@
 package com.tg.repository;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.tg.domain.Habilities;
-import com.tg.domain.People;
-import com.tg.dto.PeopleDto;
-
-import java.util.List;
 
 
 @Repository
 public interface HabilitiesRepository extends JpaRepository<Habilities, Long>{
 
-	List<Habilities> findByNameAndVillainIdIsNull(String name);
+	List<Habilities> findByName(String name);
 	
 
 }

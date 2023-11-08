@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tg.domain.Event;
-import com.tg.domain.People;
 import com.tg.dto.EventDto;
 import com.tg.repository.EventRepository;
 
@@ -54,22 +53,6 @@ public class EventServiceImplement implements EventService{
 			throw new Exception("El nombre no puede estar vacio");
 		}
 		
-		if (peopleDto.getAge() < 0) {
-			throw new Exception("La edad no puede ser nula ");
-		}
-		
-		if (peopleDto.getAgeRank().equals("")) {
-			throw new Exception("El rango de edad no puede estar vacio");
-		}
-		
-		People personaGuardar = new People();
-		
-		personaGuardar.setName(peopleDto.getName());
-		personaGuardar.setAge(peopleDto.getAge());
-		personaGuardar.setAgeRank(peopleDto.getAgeRank());
-		
-		return peopleRepository.save(personaGuardar);
-	}
 		return null;
 	}
 

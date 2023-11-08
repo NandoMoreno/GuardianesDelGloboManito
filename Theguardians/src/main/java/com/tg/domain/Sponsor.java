@@ -35,39 +35,10 @@ public class Sponsor implements Serializable{
 	@Column(name = "hero_id", nullable = false)
 	private Long heroId;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Long getPeopleId() {
-		return peopleId;
-	}
-
-	public void setPeopleId(Long peopleId) {
-		this.peopleId = peopleId;
-	}
-
-	public Long getHeroId() {
-		return heroId;
-	}
-
-	public void setHeroId(Long heroId) {
-		this.heroId = heroId;
-	}
-
-	public Sponsor(Long id, Long peopleId, Long heroId) {
-		super();
-		this.id = id;
-		this.peopleId = peopleId;
-		this.heroId = heroId;
-	}
-
-	public Sponsor() {
-		super();
-	}
+	@Column(name = "money_amount", nullable = false)
+	private String moneyAmount;
+	
+	@Column(name = "money_source", nullable = false)
+	private String moneySource;
 	
 }

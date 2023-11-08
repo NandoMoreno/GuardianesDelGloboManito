@@ -42,22 +42,22 @@ public class HeroController {
 	
 	@GetMapping("/consultarheropornombre")// Indicar el frontend que tipo de operacion hace
 	//Encargada de responder al llamado del origen con la info u codigo estatus 200 Ok ...
-    public ResponseEntity<?> consultarHeroPorNombre(@RequestParam("name") PeopleDto peopleDto, Long id){
+    public ResponseEntity<?> consultarHeroPorNombre(@RequestParam("name") String name){
 
         try {
-            return ResponseEntity.ok().body(heroService.consultarHeroPorNombre(peopleDto, id));
+            return ResponseEntity.ok().body(heroService.consultarHeroPorNombre(name));
         }catch (Exception e) {
             // TODO: handle exception
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 	
-	@GetMapping("/consultarheropordebilidad")// Indicar el frontend que tipo de operacion hace
+	@GetMapping("/consultarheroporhabilidad")// Indicar el frontend que tipo de operacion hace
 	//Encargada de responder al llamado del origen con la info u codigo estatus 200 Ok ...
-    public ResponseEntity<?> consultarHeroPorDebilidad(@RequestParam("hability") HabilitiesDto habilitiesDto, Long id){
+    public ResponseEntity<?> consultarHeroPorHabilidad(@RequestParam("hability") Long id){
 
         try {
-            return ResponseEntity.ok().body(heroService.consultarHeroPorHabilidad(habilitiesDto));
+            return ResponseEntity.ok().body(heroService.consultarHeroPorHabilidad(id));
         }catch (Exception e) {
             // TODO: handle exception
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());

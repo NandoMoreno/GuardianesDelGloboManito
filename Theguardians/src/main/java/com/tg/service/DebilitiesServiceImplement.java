@@ -52,15 +52,10 @@ public class DebilitiesServiceImplement implements DebilitiesService {
 		if (debilitiesDto.getName().equals("")) {
 			throw new Exception("El nombre no puede estar vacio");
 		}
-		
-		if (debilitiesDto.getHeroId()== null) {
-			throw new Exception("No se encontro el id de hero");
-		}
-		
+			
 		Debilities debilidadGuardar = new Debilities();
 		
 		debilidadGuardar.setName(debilitiesDto.getName());
-		debilidadGuardar.setHeroId(debilitiesDto.getHeroId());
 		
 		return debilitiesRepository.save(debilidadGuardar);
 	}
@@ -81,21 +76,17 @@ public class DebilitiesServiceImplement implements DebilitiesService {
 			throw new Exception("El nombre no puede estar vacio");
 		}
 		
-		if (debilitiesDto.getHeroId()== null) {
-			throw new Exception("No se encontro el id de hero");
-		}
 		
 		Optional<Debilities> debilidadBuscar = debilitiesRepository.findById(debilitiesDto.getId());
 		 
 		if (!debilidadBuscar.isPresent()) {
-			throw new Exception("No existe la persona que se quiere modificar");
+			throw new Exception("No existe la debilidad que se quiere modificar");
 		}
 		
 		Debilities debilidad = new Debilities();
 		
 		debilidad.setId(debilitiesDto.getId());
 		debilidad.setName(debilitiesDto.getName());
-		debilidad.setHeroId(debilitiesDto.getHeroId());
 		
 		return debilitiesRepository.save(debilidad);
 	}
@@ -113,8 +104,8 @@ public class DebilitiesServiceImplement implements DebilitiesService {
 				
 		//Se valida que la persona no exista en la base de datos
 		if (!debilidadBuscar.isPresent()) {
-			throw new Exception("No existe la persona que se quiere eliminar");
-				}
+			throw new Exception("No existe la debilidad que se quiere eliminar");
+		}
 				
 		/*Despues de validar que la personas si exista 
 		consultamos esa persona y la guardamos en un objeto de ese tipo */

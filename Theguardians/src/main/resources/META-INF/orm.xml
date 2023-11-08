@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm
+        http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd" version="2.2">
+        
+   
+	 <entity class="com.tg.domain.Hero">
+	 
+		<named-native-query name="Hero.consultarHeroes"
+			result-set-mapping="consultarHeroes">
+			<query>
+	        <![CDATA[
+				select 
+				h.people_id as peopleId,
+				h.id as id,
+				p.name as name, 
+				p.age as edad,
+				p.age_rank as rangoEdad,
+				h.wins as wins,
+				h.hability as habilidad,
+				hbl.name as nombreHabilidad
+				from hero h
+				inner join habilities hbl
+				on (hbl.id = h.id)
+				inner join people p
+				on (p.id = h.people_id);
+    		]]>
+    		</query>
+    	</named-native-query>
+    	
+		<named-native-query name="Hero.consultarHeroePorNombre"
+			result-set-mapping="consultarHeroePorNombre">
+			<query>
+	        <![CDATA[
+				SELECT 
+				h.people_id AS peopleId,
+				h.id AS id,
+				p.name AS name,
+				p.age AS edad,
+				p.age_rank AS rangoEdad,
+				h.wins AS wins,
+				h.hability as habilidad,
+				hbl.name as nombreHabilidad
+				from hero h
+				inner join habilities hbl
+				on (hbl.id = h.id)
+				inner join people p
+				on (p.id = h.people_id)
+				WHERE ((:pNombre <> '-1' and upper(p.name) like '%' || upper(:pNombre) || '%') or (:pNombre = '-1'));
+    		]]>
+    		</query>
+    	</named-native-query>
+    	
+   	</entity> 
+</entity-mappings>

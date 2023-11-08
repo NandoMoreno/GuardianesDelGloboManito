@@ -37,6 +37,18 @@ public class HabilitiesController {
         }
     }
 	
+	@GetMapping("/consultarhabilidadpornombre")// Indicar a el frontend que tipo de operacion hace
+	//Encargada de responder al llamado del origen con la info u codigo estatus 200 Ok ...
+    public ResponseEntity<?> consultarHabilidadesPorNombre(@RequestParam("nombre") String nombre){
+
+        try {
+            return ResponseEntity.ok().body(habilitiesService.consultarHabilidadesPorNombre(nombre));
+        }catch (Exception e) {
+            // TODO: handle exception
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+	
 	@PostMapping("/guardarhabilidad")// Indicar el frontend que tipo de operacion hace
 	//Encargada de responder al llamado del origen con la info u codigo estatus 200 Ok ...
 	@ResponseStatus(HttpStatus.CREATED)
@@ -50,7 +62,7 @@ public class HabilitiesController {
         }
     }
 	
-	@PutMapping("/actualizardebilidad")// Indicar el frontend que tipo de operacion hace
+	@PostMapping("/actualizarhabilidad")// Indicar el frontend que tipo de operacion hace
 	//Encargada de responder al llamado del origen con la info u codigo estatus 200 Ok ...
 	@ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> actualizarHabilidad(@RequestBody HabilitiesDto habilitiesDto){

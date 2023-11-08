@@ -1,6 +1,11 @@
 package com.tg.dto;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import com.tg.domain.Habilities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,44 +22,34 @@ public class HeroDto implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
     private Long id;
-	private int wins;
+	private Long wins;
 	private Long peopleId;
-	private Long bookingId;
+	private String name; 
+	private Long edad;
+	private String rangoEdad;
+	private Long hability;
+	private String nombreHabilidad;
 	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public int getWins() {
-		return wins;
-	}
-	public void setWins(int wins) {
-		this.wins = wins;
-	}
-	public Long getPeopleId() {
-		return peopleId;
-	}
-	public void setPeopleId(Long peopleId) {
-		this.peopleId = peopleId;
-	}
-	public Long getBookingId() {
-		return bookingId;
-	}
-	public void setBookingId(Long bookingId) {
-		this.bookingId = bookingId;
-	}
-	public HeroDto(Long id, int wins, Long peopleId, Long bookingId) {
+	public HeroDto(
+			Long peopleId, 
+			Long id, 
+			String name, 
+			Long edad, 
+			String rangoEdad, 
+			Long wins,
+			Long habilidad,
+			String nombreHabilidad) {
 		super();
-		this.id = id;
-		this.wins = wins;
 		this.peopleId = peopleId;
-		this.bookingId = bookingId;
+		this.id = id;
+		this.name = name;
+		this.edad = edad;
+		this.rangoEdad = rangoEdad;
+		this.wins = wins;
+		this.hability = habilidad;
+		this.nombreHabilidad = nombreHabilidad;
 	}
-	public HeroDto() {
-		super();
-	}
-
+	
+	
 	
 }

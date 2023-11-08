@@ -34,40 +34,8 @@ public class Fights implements Serializable{
 	
 	@Column(name = "hero_id", nullable = false)
 	private Long heroId;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Long getVillainId() {
-		return villainId;
-	}
-
-	public void setVillainId(Long villainId) {
-		this.villainId = villainId;
-	}
-
-	public Long getHeroId() {
-		return heroId;
-	}
-
-	public void setHeroId(Long heroId) {
-		this.heroId = heroId;
-	}
-
-	public Fights(Long id, Long villainId, Long heroId) {
-		super();
-		this.id = id;
-		this.villainId = villainId;
-		this.heroId = heroId;
-	}
-
-	public Fights() {
-		super();
-	}
+	
+	@Column(name = "winner", nullable = false)
+	private String winner;
 
 }

@@ -32,42 +32,5 @@ public class Debilities implements Serializable{
 	@Column(name = "name")
 	private String name;
 	
-	@Column(name = "hero_id", nullable = false)
-	private Long heroId;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Long getHeroId() {
-		return heroId;
-	}
-
-	public void setHeroId(Long heroId) {
-		this.heroId = heroId;
-	}
-
-	public Debilities(Long id, String name, Long heroId) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.heroId = heroId;
-	}
-
-	public Debilities() {
-		super();
-	}
 
 }

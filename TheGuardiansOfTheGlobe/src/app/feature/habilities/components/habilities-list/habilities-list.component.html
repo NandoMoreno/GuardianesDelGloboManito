@@ -1,0 +1,78 @@
+<div class="father">
+    <div class="son card-header mat-elevation-z8 ">
+        <span class="titulos">Filtro búsqueda</span>
+
+        <form [formGroup]="form" class="form p-4 pb-0 ">
+
+            <div>
+                <mat-form-field class="w-full">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput 
+                    [autocomplete]="'off'" 
+                    formControlName="nombre"
+                    (keyup.enter)="buscarPorNombre()">
+                </mat-form-field>
+            </div>
+
+            <div class="pt-0 pb-4">
+                <button mat-stroked-button class="bg-primary px-10 mr-2" (click)="resetForm()" type="button">
+                    <mat-icon matSuffix class="text-white">close</mat-icon>
+                    <mat-label class="text-white">limpiar</mat-label>
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="son mt-5 mat-elevation-z8">
+        <div
+            class="items-center card-header ">
+            <span class="titulos">Lista de habilidades</span>
+            <div class="flex items-center p-2">
+                <button mat-stroked-button class="bg-primary" type="button" (click)="openDialog()">
+                    <mat-label class="text-white">Crear</mat-label>
+                    <mat-icon matSuffix class="text-white">add</mat-icon>
+                </button>
+            </div>
+        </div>
+
+        <mat-table [dataSource]="dataSource" class="w-full" fuseScrollbar>
+
+            <ng-container matColumnDef="Id" >
+                <mat-header-cell *matHeaderCellDef class="min-w-40" color = 'green'>
+                    <div class="w-full px-2 text-principal-900">Id Habilidad</div>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let habilidad" class="min-w-40">
+                    <span class="w-full px-2 text-center">{{habilidad.id}}</span>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Nombre">
+                <mat-header-cell *matHeaderCellDef class="min-w-40">
+                    <div class="w-full px-2 text-principal-900">Nombre</div>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let habilidad" class="min-w-40">
+                    <span class="w-full px-2 text-center">{{habilidad.name}}</span>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Opciones">
+                <mat-header-cell *matHeaderCellDef class="min-w-40">
+                    <div class="w-full px-2 text-principal-900">Opciones</div>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let habilidad" class="min-w-40">
+                    <button mat-mini-fab class="bg-primary botonLimpiar text-center" type="button" (click)="openModifyDialog(habilidad)">
+                        <mat-icon matSuffix class="text-white">edit</mat-icon>
+                    </button>
+                    <button mat-mini-fab class="bg-warning" type="button" (click)="eliminarHabilidad(habilidad)" >
+                        <mat-icon matSuffix class="text-white">delete</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns;"></mat-header-row>
+
+            <mat-row *matRowDef="let item; let even= even; columns:displayedColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons>
+        </mat-paginator>
+    </div>
+</div>

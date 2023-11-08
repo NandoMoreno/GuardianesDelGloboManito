@@ -1,7 +1,9 @@
 package com.tg.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,8 @@ import com.tg.repository.HabilitiesRepository;
 import com.tg.repository.HeroRepository;
 import com.tg.repository.PeopleRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class HeroServiceImplement implements HeroService {
 
@@ -27,12 +31,13 @@ public class HeroServiceImplement implements HeroService {
 	
 	@Autowired
 	private HabilitiesRepository habilitiesRepository;
-
+	
+	@Transactional
 	@Override
-	public List<Hero> consultarTodosLosHeros() throws Exception {
+	public List<HeroDto> consultarTodosLosHeros() throws Exception {
 
 		// TODO Auto-generated method stub
-		List<Hero> listaHero = heroRepository.findAll();
+		List<HeroDto> listaHero = heroRepository.consultarHeroes();
 		if (listaHero.isEmpty()) {
 			throw new Exception("No hay ningun elemento en la Puta lista");
 		} else {
@@ -55,13 +60,9 @@ public class HeroServiceImplement implements HeroService {
 	@Override
 	public Hero guardarHero(HeroDto heroDto) throws Exception {
 		// TODO Auto-generated method stub
-
+		System.out.println(heroDto);
 		if (heroDto == null) {
 			throw new Exception("No se recibieron datos");
-		}
-
-		if (heroDto.getId() < 0) {
-			throw new Exception("El id no puede ser menor a 0");
 		}
 
 		if (heroDto.getWins() < 0) {
@@ -69,20 +70,23 @@ public class HeroServiceImplement implements HeroService {
 		}
 
 		if (heroDto.getPeopleId() < 0) {
-			throw new Exception("El id no puede ser menor a 0");
+			throw new Exception("El id de la persona debe ser un numero");
 		}
-
-		if (heroDto.getBookingId() < 0) {
-			throw new Exception("El id no puede ser menor a 0");
+		
+		Optional<People> personaABuscar = peopleRepository.findById(heroDto.getPeopleId());
+		
+		if (!personaABuscar.isPresent()) {
+			throw new Exception("La persona base del heroe no existe");
 		}
 
 		Hero heroGuardar = new Hero();
-
-		heroGuardar.setId(heroDto.getId());
+		
+		System.out.println(heroDto.getHability());
+		
 		heroGuardar.setWins(heroDto.getWins());
 		heroGuardar.setPeopleId(heroDto.getPeopleId());
-		heroGuardar.setBookingId(heroDto.getBookingId());
-
+		heroGuardar.setHability(heroDto.getHability());
+		
 		return heroRepository.save(heroGuardar);
 	}
 
@@ -106,22 +110,18 @@ public class HeroServiceImplement implements HeroService {
 			throw new Exception("El id no puede ser menor a 0");
 		}
 
-		if (heroDto.getBookingId() < 0) {
-			throw new Exception("El id no puede ser menor a 0");
-		}
-
 		Optional<Hero> heroBuscar = heroRepository.findById(heroDto.getId());
 
 		if (!heroBuscar.isPresent()) {
-			throw new Exception("No existe la persona que se quiere modificar");
+			throw new Exception("No existe el heroe que se quiere modificar");
 		}
 
 		Hero heroModificar = new Hero();
+		
 
 		heroModificar.setId(heroDto.getId());
 		heroModificar.setWins(heroDto.getWins());
 		heroModificar.setPeopleId(heroDto.getPeopleId());
-		heroModificar.setBookingId(heroDto.getBookingId());
 
 		return heroRepository.save(heroModificar);
 	}
@@ -156,54 +156,44 @@ public class HeroServiceImplement implements HeroService {
 	}
 
 	@Override
-	public List<People> consultarHeroPorNombre(PeopleDto peopleDto, Long heroId) throws Exception {
+	public List<HeroDto> consultarHeroPorNombre(String nombre) throws Exception {
 		// TODO Auto-generated method stub
 		
-		if (peopleDto == null) {
-			throw new Exception("No se puede consultar una persona vacia");
-		}
-		
-		if (heroId < 0) {
-			throw new Exception("El id debe de ser mayor a 0");
-		}
-		
-		if (peopleDto.getName().equals("")) {
+		if (nombre.equals("")) {
 			throw new Exception("El nombre no puede estar vacio");
 		}
-
-		List<People> personasABuscar = peopleRepository.findByName(peopleDto.getName());
 		
-		Optional<Hero> heroBuscar = heroRepository.findById(heroId);
+		List<HeroDto> heroeABuscar= heroRepository.consultarHeroePorNombre(nombre);
 		
-		if (!heroBuscar.isPresent()) {
+		if (heroeABuscar.isEmpty()) {
 			throw new Exception("Ese heroe no existe");
-		}
-		
-		if (personasABuscar.isEmpty()) {
-			throw new Exception("No hay persona con ese nombre");
-		} else {
-			return personasABuscar;
+		}else {
+			return heroeABuscar;
 		}
 	}
 
 	@Override
-	public List<Hero> consultarHeroPorHabilidad(HabilitiesDto habilitiesDto) throws Exception {
+	public List<Hero> consultarHeroPorHabilidad(Long id) throws Exception {
 		// TODO Auto-generated method stub
 		
-		if (habilitiesDto == null) {
-			throw new Exception("No se puede consultar una persona vacia");
+		if (id < 0) {
+			throw new Exception("El id no debe de estar vacio");
 		}
 		
-		if (habilitiesDto.getName().equals("")) {
-			throw new Exception("El nombre no puede estar vacio");
-		}
+        Optional<Habilities> HabilidadABuscar = habilitiesRepository.findById(id);
 		
-List<Habilities> HabilidadABuscar = habilitiesRepository.findByNameAndVillainIdIsNull(habilitiesDto.getName());
-		
-		if (HabilidadABuscar.isEmpty()) {
-			throw new Exception("No hay persona con esa habilidad");
-		} else {
-			return HabilidadABuscar;
+        if (!HabilidadABuscar.isPresent()) {
+        	throw new Exception("No existe esa habilidad");
+        } 
+
+        List<Hero> heroesPorHabilidad = heroRepository.findByHability(id); 
+        
+		if (heroesPorHabilidad.isEmpty()) {
+			throw new Exception("No hay ningun heroe con esta habilidad");
+		}else {
+			return heroesPorHabilidad;
 		}
 	}
+
+
 }

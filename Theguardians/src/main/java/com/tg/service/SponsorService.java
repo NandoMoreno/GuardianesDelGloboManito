@@ -11,6 +11,7 @@ import com.tg.dto.SponsorDto;
 public interface SponsorService {
 	
 	public List<Sponsor> consultarTodasLasSponsors() throws Exception;
+	public List<Sponsor> consultarTodasLasSponsorsPorIDHeroe(Long idHeroe) throws Exception;
 	public Sponsor consultarSponsorPorId(Long sponsorId) throws Exception;
 	public Sponsor guardarSponsor(SponsorDto sponsorDto) throws Exception; //Recibir un objeto Dto para guardar como objeto de dominio
 	public Sponsor modificarSponsor(SponsorDto sponsorDto) throws Exception;
