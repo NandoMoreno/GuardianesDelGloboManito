@@ -7,6 +7,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { ReplaySubject } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { Debilities } from '../../model/debilities';
+import { CreateDebilitieComponent } from '../create-debilitie/create-debilitie.component';
+import { ModifyDebilitieComponent } from '../modify-debilitie/modify-debilitie.component';
 
 @Component({
   selector: 'app-debilities-list',
@@ -15,7 +17,9 @@ import { Debilities } from '../../model/debilities';
 })
 export class DebilitiesListComponent {
 
-  
+  public debilidadAux: Debilities = {
+    name: ''
+  };
   public debilidadEscogida: Debilities;
   public debilidades: Debilities[] = [];
 
@@ -28,6 +32,7 @@ export class DebilitiesListComponent {
   public displayedColumns: string[] = [
     'Id',
     'Nombre',
+    'Opciones',
   ];
 
   constructor(
@@ -40,7 +45,6 @@ export class DebilitiesListComponent {
   ngOnInit(): void {
     this.form = this.formsBuilder.group({
       nombre: '',
-      habilidad: '',
     });
     this.consultarDebilidades();
   }
@@ -51,24 +55,86 @@ export class DebilitiesListComponent {
   }
 
   buscarPorNombre() {
-    this.consultarHeroesPorNombre(this.form.controls['nombre'].value);
+    this.consultarDebilidadPorNombre(this.form.controls['nombre'].value);
   }
 
   consultarDebilidades(): void {
     this.debilitiesService.consultarListaDebilities().subscribe(req => {
       if (req) {
-        this.debilidades = req;
+        this.dataSource = new MatTableDataSource<Debilities>(req);
+        this.dataSource.paginator = this.paginator;
       }
     })
   }
 
-  consultarHeroesPorNombre(nombre: string): void {
+  consultarDebilidadPorNombre(nombre: string): void {
     this.debilitiesService.consultarListaDebilitiesPorNombre(nombre).subscribe(req => {
       if (req) {
         this.dataSource = new MatTableDataSource<Debilities>(req);
         this.dataSource.paginator = this.paginator;
       }
     })
+  }
+
+  guardarDebilidad(): void{
+    let debilidad: Debilities = {
+      name: this.debilidadAux.name
+    }
+    this.debilitiesService.guardarDebilitie(debilidad).subscribe(req => {
+      if(req){
+        this.matSnackbarService.openSnackBar(`Debilidad ${this.debilidadAux.name} creada con exito`, "Cerrar");
+        this.consultarDebilidades();
+      }
+    })
+  }
+
+  modificarDebilidad(debilidad: Debilities): void{
+    this.debilitiesService.modificarDebilitie(debilidad).subscribe(req => {
+      if(req){
+        this.matSnackbarService.openSnackBar(`Debilidad ${this.debilidadAux.name} modificada con exito`, "Cerrar");
+        this.consultarDebilidades();
+      }
+    })
+  }
+
+  eliminarDebilidad(debilidad: Debilities): void{
+    this.debilitiesService.eliminarDebilitie(Number (debilidad.id)).subscribe(req => {
+      if(req){
+        this.matSnackbarService.openSnackBar(`Debilidad ${debilidad.name} eliminada con exito`, "cerrar");
+        this.consultarDebilidades();
+      }
+    })
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(CreateDebilitieComponent, {
+      data: { 
+        name: this.debilidadAux.name
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      this.debilidadAux.name = result.name;
+      this.guardarDebilidad();
+      this.debilidadAux.name = '';
+    });
+  }
+
+  openModifyDialog(debilidadParam: Debilities): void {
+    const dialogRef = this.dialog.open(ModifyDebilitieComponent, {
+      data: { 
+        id: debilidadParam.id,
+        name: debilidadParam.name, 
+      },
+      
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.debilidadAux.id = result.id;
+      this.debilidadAux.name = result.name;
+      this.modificarDebilidad(this.debilidadAux);
+    });
   }
 
 }

@@ -35,6 +35,18 @@ public class SponsorController {
         }
     }
 	
+	@GetMapping("/consultarsponsorporheroe")// Indicar el frontend que tipo de operacion hace
+	//Encargada de responder al llamado del origen con la info u codigo estatus 200 Ok ...
+    public ResponseEntity<?> consultarSponsorPorIdHeroe(@RequestParam("id") Long id){
+
+        try {
+            return ResponseEntity.ok().body(sponsorService.consultarTodasLasSponsorsPorIDHeroe(id));
+        }catch (Exception e) {
+            // TODO: handle exception
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+	
 	@PostMapping("/guardarsponsor")// Indicar el frontend que tipo de operacion hace
 	//Encargada de responder al llamado del origen con la info u codigo estatus 200 Ok ...
 	@ResponseStatus(HttpStatus.CREATED)

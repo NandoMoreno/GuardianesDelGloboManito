@@ -18,7 +18,7 @@ export class DebilitiesService {
     ) { }
 
     consultarListaDebilities(): Observable<Debilities[]>{
-      return this.httpClient.get<Debilities[]>(`${this.url}consultardebilities`).pipe(
+      return this.httpClient.get<Debilities[]>(`${this.url}consultardebilidades`).pipe(
         catchError(e => {
           this.matSnackbarService.openSnackBar(e.error, "Cerrar");
           return throwError(e);
@@ -27,7 +27,7 @@ export class DebilitiesService {
     }
   
     consultarListaDebilitiesPorNombre(nombre: string): Observable<Debilities[]>{
-      return this.httpClient.get<Debilities[]>(`${this.url}consultardebilitiespornombre?name=${nombre}`).pipe(
+      return this.httpClient.get<Debilities[]>(`${this.url}consultardebilidadpornombre?nombre=${nombre}`).pipe(
         catchError(e => {
           this.matSnackbarService.openSnackBar(e.error, "Cerrar");
           return throwError(e);
@@ -36,7 +36,7 @@ export class DebilitiesService {
     }
   
     guardarDebilitie(debilitie: Debilities): Observable<Debilities>{
-      return this.httpClient.post<Debilities>(`${this.url}guardardebilitie`, debilitie).pipe(
+      return this.httpClient.post<Debilities>(`${this.url}guardardebilidad`, debilitie).pipe(
         catchError(e => {
           this.matSnackbarService.openSnackBar(e.error, "Cerrar");
           return throwError(e);
@@ -45,7 +45,7 @@ export class DebilitiesService {
     }
   
     modificarDebilitie(debilitie: Debilities): Observable<Debilities>{
-      return this.httpClient.post<Debilities>(`${this.url}actualizardebilitie`, debilitie).pipe(
+      return this.httpClient.post<Debilities>(`${this.url}actualizardebilidad`, debilitie).pipe(
         catchError(e => {
           this.matSnackbarService.openSnackBar(e.error, "Cerrar");
           return throwError(e);
@@ -54,7 +54,7 @@ export class DebilitiesService {
     }
   
     eliminarDebilitie(idDebilitie: number): Observable<Debilities>{
-      return this.httpClient.delete<Debilities>(`${this.url}eliminardebilitie?id=${idDebilitie}`).pipe(
+      return this.httpClient.delete<Debilities>(`${this.url}eliminardebilidad?id=${idDebilitie}`).pipe(
         catchError(e => {
           this.matSnackbarService.openSnackBar(e.error, "Cerrar");
           return throwError(e);

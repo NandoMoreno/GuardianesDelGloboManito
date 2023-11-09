@@ -18,8 +18,8 @@ public class VillainDto implements Serializable{
 	
 	private Long id;
 	private String origin;
-	private String power;
+	private Long debilityId;
 	private Long peopleId;
-	
+	private Long hability;
 
 }

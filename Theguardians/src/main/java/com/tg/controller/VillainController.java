@@ -18,56 +18,80 @@ import com.tg.service.VillainService;
 
 @CrossOrigin("*")//Permite que todos los puertos tienen acceso
 @RestController // Utilice APis rest
-@RequestMapping("/api/villain") // Ruta donde va ser llamada mi Api
+@RequestMapping("/api/villano") // Ruta donde va ser llamada mi Api
 public class VillainController {
 	
-	private VillainService villainService;
+	private VillainService villanoService;
 	
-	@GetMapping("/consultarvillain")// Indicar el frontend que tipo de operacion hace
+	@GetMapping("/consultarvillanos")// Indicar el frontend que tipo de operacion hace
 	//Encargada de responder al llamado del origen con la info u codigo estatus 200 Ok ...
     public ResponseEntity<?> consultarVillain(){
 
         try {
-            return ResponseEntity.ok().body(villainService.consultarTodasLasVillains());
+            return ResponseEntity.ok().body(villanoService.consultarTodasLasVillains());
         }catch (Exception e) {
             // TODO: handle exception
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 	
-	@PostMapping("/guardarvillain")// Indicar el frontend que tipo de operacion hace
+	@GetMapping("/consultarvillanosporhabilidad")// Indicar el frontend que tipo de operacion hace
+	//Encargada de responder al llamado del origen con la info u codigo estatus 200 Ok ...
+    public ResponseEntity<?> consultarVillanoPorHabilidad(@RequestParam("id") Long id){
+
+        try {
+            return ResponseEntity.ok().body(villanoService.encontrarVillanoPorHabilidad(id));
+        }catch (Exception e) {
+            // TODO: handle exception
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+	
+	@GetMapping("/consultarvillanospordebilidad")// Indicar el frontend que tipo de operacion hace
+	//Encargada de responder al llamado del origen con la info u codigo estatus 200 Ok ...
+    public ResponseEntity<?> consultarVillanoPorDebilidad(@RequestParam("id") Long id){
+
+        try {
+            return ResponseEntity.ok().body(villanoService.encontrarVillanoPorDebilidad(id));
+        }catch (Exception e) {
+            // TODO: handle exception
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+	
+	@PostMapping("/guardarvillano")// Indicar el frontend que tipo de operacion hace
 	//Encargada de responder al llamado del origen con la info u codigo estatus 200 Ok ...
 	@ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<?> guardarVillain(@RequestBody VillainDto villainDto){
+    public ResponseEntity<?> guardarVillain(@RequestBody VillainDto villanoDto){
 
         try {
-            return ResponseEntity.ok().body(villainService.guardarVillain(villainDto));
+            return ResponseEntity.ok().body(villanoService.guardarVillain(villanoDto));
         }catch (Exception e) {
             // TODO: handle exception
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 	
-	@PutMapping("/actualizarvillain")// Indicar el frontend que tipo de operacion hace
+	@PutMapping("/actualizarvillano")// Indicar el frontend que tipo de operacion hace
 	//Encargada de responder al llamado del origen con la info u codigo estatus 200 Ok ...
 	@ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<?> actualizarVillain(@RequestBody VillainDto villainDto){
+    public ResponseEntity<?> actualizarVillain(@RequestBody VillainDto villanoDto){
 
         try {
-            return ResponseEntity.ok().body(villainService.modificarVillain(villainDto));
+            return ResponseEntity.ok().body(villanoService.modificarVillain(villanoDto));
         }catch (Exception e) {
             // TODO: handle exception
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 	
-	@DeleteMapping("/eliminarvillain")
+	@DeleteMapping("/eliminarvillano")
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<?> eliminarVillain(@RequestParam("id") Long villainId){
+	public ResponseEntity<?> eliminarVillain(@RequestParam("id") Long villanoId){
 
         try {
-        	villainService.eliminarVillain(villainId);
-            return ResponseEntity.ok(villainId);
+        	villanoService.eliminarVillain(villanoId);
+            return ResponseEntity.ok(villanoId);
         }catch (Exception e) {
             // TODO: handle exception
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());

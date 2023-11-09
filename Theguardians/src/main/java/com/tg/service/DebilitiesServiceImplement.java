@@ -116,4 +116,20 @@ public class DebilitiesServiceImplement implements DebilitiesService {
 		debilitiesRepository.delete(debilidad);
 	}
 
+	@Override
+	public List<Debilities> encontrarDebilidadPorNombre(String nombre) throws Exception {
+		// TODO Auto-generated method stub
+		if(nombre.equals("")) {
+			throw new Exception("El nombre no puede estar vacio");
+		}
+		
+		List<Debilities> debilidades = debilitiesRepository.findByName(nombre);
+		
+		if (debilidades.isEmpty()) {
+			throw new Exception("No hay ninguna debilidad con ese nombre");
+		}else {
+			return debilidades;
+		}
+	}
+
 }

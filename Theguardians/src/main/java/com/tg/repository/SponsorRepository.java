@@ -11,4 +11,8 @@ import com.tg.domain.Sponsor;
 public interface SponsorRepository extends JpaRepository<Sponsor, Long>{
 	
 	List<Sponsor> findByHeroId(Long heroId);
+	
+	List<Sponsor> findByMoneyAmount(String moneyAmount);
+	
+	List<Sponsor> findByMoneySource(String moneySource);
 }

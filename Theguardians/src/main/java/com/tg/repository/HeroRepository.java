@@ -1,14 +1,12 @@
 package com.tg.repository;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.tg.domain.Habilities;
 import com.tg.domain.Hero;
 import com.tg.dto.HeroDto;
 

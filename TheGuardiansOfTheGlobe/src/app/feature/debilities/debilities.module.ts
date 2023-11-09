@@ -23,10 +23,14 @@ import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/mater
 import { CoreModule } from 'src/app/core/core.module';
 import { MatSnackbarService } from 'src/app/core/service/mat-snackbar.service';
 import { DebilitiesService } from './service/debilities.service';
+import { CreateDebilitieComponent } from './components/create-debilitie/create-debilitie.component';
+import { ModifyDebilitieComponent } from './components/modify-debilitie/modify-debilitie.component';
 
 @NgModule({
   declarations: [
-    DebilitiesListComponent
+    DebilitiesListComponent,
+    CreateDebilitieComponent,
+    ModifyDebilitieComponent
   ],
   imports: [
     CommonModule,

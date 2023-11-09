@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,6 +36,18 @@ public class DebilitiesController {
         }
     }
 	
+	@GetMapping("/consultardebilidadpornombre")
+	@ResponseStatus(HttpStatus.OK)
+	public ResponseEntity<?> consultarDebilidadPorNombre(@RequestParam("nombre") String nombre){
+
+        try {
+            return ResponseEntity.ok(debilitiesService.encontrarDebilidadPorNombre(nombre));
+        }catch (Exception e) {
+            // TODO: handle exception
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+	
 	@PostMapping("/guardardebilidad")// Indicar el frontend que tipo de operacion hace
 	//Encargada de responder al llamado del origen con la info u codigo estatus 200 Ok ...
 	@ResponseStatus(HttpStatus.CREATED)
@@ -50,7 +61,7 @@ public class DebilitiesController {
         }
     }
 	
-	@PutMapping("/actualizardebilidad")// Indicar el frontend que tipo de operacion hace
+	@PostMapping("/actualizardebilidad")// Indicar el frontend que tipo de operacion hace
 	//Encargada de responder al llamado del origen con la info u codigo estatus 200 Ok ...
 	@ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> actualizarDebilidad(@RequestBody DebilitiesDto debilitiesDto){

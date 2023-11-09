@@ -1,9 +1,7 @@
 package com.tg.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,9 +9,7 @@ import org.springframework.stereotype.Service;
 import com.tg.domain.Habilities;
 import com.tg.domain.Hero;
 import com.tg.domain.People;
-import com.tg.dto.HabilitiesDto;
 import com.tg.dto.HeroDto;
-import com.tg.dto.PeopleDto;
 import com.tg.repository.HabilitiesRepository;
 import com.tg.repository.HeroRepository;
 import com.tg.repository.PeopleRepository;

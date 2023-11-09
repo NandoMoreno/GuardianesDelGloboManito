@@ -1,11 +1,6 @@
 package com.tg.dto;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import com.tg.domain.Habilities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

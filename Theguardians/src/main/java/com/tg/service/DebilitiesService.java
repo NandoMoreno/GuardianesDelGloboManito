@@ -15,4 +15,5 @@ public interface DebilitiesService {
 	public Debilities guardarDebilidades(DebilitiesDto debilitiesDto) throws Exception; //Recibir un objeto Dto para guardar como objeto de dominio
 	public Debilities modificarDebilidades(DebilitiesDto debilitiesDto) throws Exception;
 	public void eliminarDebilidades(Long debilitiesId) throws Exception;
+	public List<Debilities> encontrarDebilidadPorNombre(String nombre) throws Exception;
 }

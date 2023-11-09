@@ -34,31 +34,6 @@
                 </mat-form-field>
             </div>
 
-            <!-- <div class="px-2">
-                <mat-form-field class="camposForm" >
-                    <mat-label>Edad</mat-label>
-                    <mat-select formControlName="edad">
-                        <mat-option>
-                            <ngx-mat-select-search
-                            formControlName="rolFilter" placeholderLabel="Buscando..."
-                            noEntriesFoundLabel="Vacio"></ngx-mat-select-search>
-                        </mat-option> 
-                    </mat-select>
-                </mat-form-field>
-            </div>
-
-            <div class="px-2">
-                <mat-form-field class="camposForm" >
-                    <mat-label>Rango</mat-label>
-                    <mat-select formControlName="relacion">
-                        <mat-option>
-                            <ngx-mat-select-search
-                            formControlName="rolFilter" placeholderLabel="Buscando..."
-                            noEntriesFoundLabel="Vacio"></ngx-mat-select-search>
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>-->
             <div class="pt-0 pb-4">
                 <button mat-stroked-button class="bg-primary px-10 mr-2" (click)="resetForm()" type="button">
                     <mat-icon matSuffix class="text-white">close</mat-icon>
@@ -71,7 +46,7 @@
         <div
             class="items-center card-header ">
             <span class="titulos">Lista de personas</span>
-            <div class="flex items-center">
+            <div class="flex items-center p-2">
                 <button mat-stroked-button class="bg-primary" type="button" (click)="openDialog()">
                     <mat-label class="text-white">Crear Persona</mat-label>
                     <mat-icon matSuffix class="text-white">add</mat-icon>
@@ -91,7 +66,7 @@
             </div>
         </div>
 
-        <mat-table [dataSource]="dataSource" class="w-full" fuseScrollbar>
+        <mat-table [dataSource]="dataSource" class="w-full" >
 
             <ng-container matColumnDef="Id" >
                 <mat-header-cell *matHeaderCellDef class="min-w-40" color = 'green'>

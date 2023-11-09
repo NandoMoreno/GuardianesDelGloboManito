@@ -1,15 +1,11 @@
 package com.tg.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import com.tg.domain.Hero;
-import com.tg.domain.People;
-import com.tg.dto.HabilitiesDto;
 import com.tg.dto.HeroDto;
-import com.tg.dto.PeopleDto;
 
 @Service
 public interface HeroService {

@@ -53,4 +53,59 @@
     	</named-native-query>
     	
    	</entity> 
+   	
+   	<entity class="com.tg.domain.Villain">
+   		
+ 				<named-native-query name="Villain.consultarVillanos"
+			result-set-mapping="consultarVillanos">
+			<query>
+	        <![CDATA[
+				select 
+				v.people_id as peopleId,
+				v.id as id,
+				p.name as name, 
+				p.age as edad,
+				p.age_rank as rangoEdad,
+				v.hability as habilidad,
+				v.debility as debilidad,
+				hbl.name as nombreHabilidad,
+				dbl.name as nombreDebilidad
+				from villain v
+				inner join habilities hbl
+				on (hbl.id = v.hability)
+				inner join debilities dbl
+				on (dbl.id = v.debility)
+				inner join people p
+				on (p.id = h.people_id);
+    		]]>
+    		</query>
+    	</named-native-query>
+    	
+		<named-native-query name="Villain.consultarVillanoPorNombre"
+			result-set-mapping="consultarVillanoPorNombre">
+			<query>
+	        <![CDATA[
+				SELECT 
+				v.people_id AS peopleId,
+				v.id AS id,
+				p.name AS name,
+				p.age AS edad,
+				p.age_rank AS rangoEdad,
+				v.hability as habilidad,
+				v.debility as debilidad,
+				hbl.name as nombreHabilidad,
+				dbl.name as nombreDebilidad
+				from villain v
+				inner join habilities hbl
+				on (hbl.id = v.hability)
+				inner join debilities dbl
+				on (dbl.id = v.debility)
+				inner join people p
+				on (p.id = h.people_id)
+				WHERE ((:pNombre <> '-1' and upper(p.name) like '%' || upper(:pNombre) || '%') or (:pNombre = '-1'));
+    		]]>
+    		</query>
+    	</named-native-query>
+   	
+   	</entity>
 </entity-mappings>

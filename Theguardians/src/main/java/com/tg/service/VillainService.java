@@ -15,5 +15,7 @@ public interface VillainService {
 	public Villain guardarVillain(VillainDto villainDto) throws Exception; //Recibir un objeto Dto para guardar como objeto de dominio
 	public Villain modificarVillain(VillainDto villainDto) throws Exception;
 	public void eliminarVillain(Long villainId) throws Exception;
+	public List<Villain> encontrarVillanoPorHabilidad(Long id) throws Exception;
+	public List<Villain> encontrarVillanoPorDebilidad(Long id) throws Exception;
 
 }
